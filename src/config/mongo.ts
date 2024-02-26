@@ -1,4 +1,6 @@
-import 'dotenv';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import mongoose from "mongoose";
 
@@ -21,4 +23,4 @@ mongoose.connection.on('disconnected', () => {
 
 mongoose.connection.on('error', (error) => {
     console.log(`Mongo connection error`, error);
-})
+});
