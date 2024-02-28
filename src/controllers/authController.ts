@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IUser } from '../model-typing/IUser';
 import User from '../models/User';
 import { UserTypes } from '../enums/UserTypes';
-import { signToken } from '../helpers/authHelpers';
+import { checkPassword, signToken } from '../helpers/authHelpers';
 
 
 export default {
@@ -38,10 +38,18 @@ export default {
                 message: `No user Found with username and password`,
             });
         } else {
-            res.status(200).send({
-                success: true,
-                token: signToken(user[0].id),
-            })
+            const passCheck = checkPassword(password, user[0].password);
+            if (passCheck) {
+                res.status(200).send({
+                    success: true,
+                    token: signToken(user[0].id),
+                });
+            } else {
+                res.status(401).send({
+                    success: false,
+                    message: `Invalid username and password`,
+                })
+            }
         }
     }
 }

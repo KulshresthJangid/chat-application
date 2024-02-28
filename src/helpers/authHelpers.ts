@@ -29,5 +29,5 @@ export const hashPassword = (password: string) => {
 }
 
 export const checkPassword = (userPass: string, savedPassword: string) => {
-    return bcrypt.compare(userPass, savedPassword);
+    return bcrypt.compareSync(userPass, savedPassword);
 }
