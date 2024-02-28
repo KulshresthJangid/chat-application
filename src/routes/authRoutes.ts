@@ -1,13 +1,14 @@
 import express, { Request, Response } from 'express';
-import { registerUser } from '../controllers/authController'
+import authController from '../controllers/authController';
+import User from '../models/User';
+import { IUser } from '../model-typing/IUser';
+import { signToken } from '../helpers/authHelpers';
 
 
 const router = express.Router();
 
-router.post('/register', registerUser);
+router.post('/register', authController.registerUser);
 
-router.post('/login', (req: Request, res: Response) => {
-
-});
+router.post('/login', authController.loginUser);
 
 export default router;
