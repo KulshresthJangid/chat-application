@@ -4,6 +4,7 @@ import { UserTypes } from '../enums/UserTypes';
 export interface IUser extends Document {
     firstName: string;
     lastName: string;
-    password: string,
+    userName: string;
+    password: string;
     type: UserTypes;
 }
