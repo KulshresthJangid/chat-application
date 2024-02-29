@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose';
+import  { Document } from 'mongoose';
 import { UserTypes } from '../enums/UserTypes';
 
 export interface IUser extends Document {

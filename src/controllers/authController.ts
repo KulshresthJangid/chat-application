@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IUser } from '../model-typing/IUser';
+import { IUser } from '../model-typings/IUser';
 import User from '../models/User';
 import { UserTypes } from '../enums/UserTypes';
 import { checkPassword, signToken } from '../helpers/authHelpers';

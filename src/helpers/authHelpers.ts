@@ -1,9 +1,10 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
 import { APP_CONFIG } from '../config/config';
+import { TokenPayload } from '../core-typings/TokenPayload';
 
 export const signToken = (userId: string): string => {
-    return jwt.sign({userId}, APP_CONFIG.jwtSecretKey, {expiresIn: APP_CONFIG.jwtExpiry});
+    return jwt.sign({ userId }, APP_CONFIG.jwtSecretKey, { expiresIn: APP_CONFIG.jwtExpiry });
 }
 
 
@@ -30,4 +31,13 @@ export const hashPassword = (password: string) => {
 
 export const checkPassword = (userPass: string, savedPassword: string) => {
     return bcrypt.compareSync(userPass, savedPassword);
+}
+
+export const verifyToken = (token: string): TokenPayload => {
+    try {
+        return <TokenPayload>jwt.verify(token, APP_CONFIG.jwtSecretKey);
+    } catch (error) {
+        throw new Error("Error while verying the token: " + error);
+
+    }
 }

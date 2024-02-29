@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { UserTypes } from "../enums/UserTypes";
-import { IUser } from "../model-typing/IUser";
+import { IUser } from "../model-typings/IUser";
 import { hashPassword } from "../helpers/authHelpers";
 
 const userSchema: Schema = new Schema({

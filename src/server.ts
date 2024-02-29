@@ -3,6 +3,8 @@ import express, { urlencoded } from 'express';
 
 import './config/mongo';
 import authRoutes from './routes/authRoutes';
+import chatRoomRoutes from './routes/chatRoom';
+import auth from './middlewares/auth';
 
 const app = express();  
 
@@ -13,6 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(authRoutes);
+app.use("/chatRooms", auth.checkToken, chatRoomRoutes);
 
 server.listen(port);
 
