@@ -33,11 +33,19 @@ export const checkPassword = (userPass: string, savedPassword: string) => {
     return bcrypt.compareSync(userPass, savedPassword);
 }
 
-export const verifyToken = (token: string): TokenPayload => {
+export const decodeToken = (token: string): TokenPayload => {
     try {
         return <TokenPayload>jwt.verify(token, APP_CONFIG.jwtSecretKey);
     } catch (error) {
         throw new Error("Error while verying the token: " + error);
 
+    }
+}
+
+export const isAuthenticated = (exp: number): boolean => {
+    if (Date.now() >= exp * 1000) {
+        return false;
+    } else {
+        return true;
     }
 }

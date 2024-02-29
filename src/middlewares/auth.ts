@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { verifyToken } from "../helpers/authHelpers";
-import { JwtPayload } from "jsonwebtoken";
+import { isAuthenticated, decodeToken } from "../helpers/authHelpers";
 import { TokenPayload } from "../core-typings/TokenPayload";
 
 export default {
@@ -9,8 +8,8 @@ export default {
         if (authToken) {
             try {
                 console.log("auth token", authToken);
-                const decode: TokenPayload = await verifyToken(authToken);
-                if (decode && decode.userId) {
+                const decode: TokenPayload = await decodeToken(authToken);
+                if (decode && decode.userId && decode.exp && isAuthenticated(decode.exp)) {
                     req.userId = decode.userId;
                     next();
                 } else {

@@ -1,4 +1,4 @@
 export const APP_CONFIG = {
     jwtSecretKey: 'codealchemyx',
-    jwtExpiry: 86400,
+    jwtExpiry: '1d',
 }
