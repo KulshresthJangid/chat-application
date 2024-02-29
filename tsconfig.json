@@ -15,6 +15,6 @@
         "node_modules"
     ],
     "files": [
-        "src/core-typings/custom.d.ts"
+        "src/core-typings/express.d.ts"
     ]
 }

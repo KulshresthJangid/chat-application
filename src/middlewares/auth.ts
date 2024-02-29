@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { isAuthenticated, decodeToken } from "../helpers/authHelpers";
-import { TokenPayload } from "../core-typings/TokenPayload";
+import { ITokenPayload } from "../core-typings/ITokenPayload";
 
 export default {
     checkToken: async (req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +8,7 @@ export default {
         if (authToken) {
             try {
                 console.log("auth token", authToken);
-                const decode: TokenPayload = await decodeToken(authToken);
+                const decode: ITokenPayload = await decodeToken(authToken);
                 if (decode && decode.userId && decode.exp && isAuthenticated(decode.exp)) {
                     req.userId = decode.userId;
                     next();
