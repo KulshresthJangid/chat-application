@@ -53,13 +53,3 @@ export default {
         }
     }
 }
-
-
-
-// 3. Implement our login api.
-// 4. Implement our room apis.
-// 5. Check if the username is available or not so that we can avoid errors
-
-
-// 1. We need something unique identification in each user
-// 2. whenevr the user registers give him a jwt token or tell him to login

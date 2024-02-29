@@ -18,4 +18,4 @@ server.listen(port);
 
 server.on('listening', () => {
     console.log(`Server is up and running on port ${port}`);
-})
+});
