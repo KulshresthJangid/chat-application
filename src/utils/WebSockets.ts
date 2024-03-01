@@ -33,9 +33,8 @@ class WebSockets {
             if(socketConn) {
                 socketConn.join(room);
             }
-        })
+        });
     }
 }
-
 
 export default new WebSockets();
