@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { IUser } from '../model-typings/IUser';
-import User from '../models/User';
+import { IUser } from '../model-typings/IUserModel';
+import User from '../models/raw/User';
 import { UserTypes } from '../enums/UserTypes';
 import { checkPassword, signToken } from '../helpers/authHelpers';
 

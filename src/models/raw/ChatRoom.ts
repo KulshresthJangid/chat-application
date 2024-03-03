@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { IChatRoom } from "../model-typings/IChatRoom";
-import { ChatRoomTypes } from "../enums/ChatRoomTypes";
+import { IChatRoom } from "../../model-typings/IChatRoom";
+import { ChatRoomTypes } from "../../enums/ChatRoomTypes";
 
 const chatRoomSchema: Schema = new Schema({
     userIds: { type: Array, required: true },

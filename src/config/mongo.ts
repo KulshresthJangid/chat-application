@@ -1,26 +1,35 @@
-import dotenv from 'dotenv';
+import { Db, MongoClient, MongoClientOptions } from "mongodb";
 
-dotenv.config();
+export class MongoConnection {
+    private client: MongoClient | null = null;
+    private db: Db | null = null;
 
-import mongoose from "mongoose";
+    constructor() { }
 
+    async connect(uri: string, dbName: string, option?: MongoClientOptions): Promise<void> {
+        try {
+            this.client = new MongoClient(uri, option);
+            await this.client.connect();
+            this.db = this.client.db(dbName);
+            console.log('MongoDB Connection acquired Successfully');
+        } catch (error) {
+            console.error("Error while connecting to mongodb", error);
+            throw error;
+        }
+    }
 
-const CONNECTION_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/chatApp';
+    getDatabase(): Db {
+        if (!this.db) {
+            throw new Error("No Db Present");
 
-mongoose.connect(CONNECTION_URL);
+        }
+        return this.db;
+    }
 
-mongoose.connection.on('connected', () => {
-    console.log(`Mongo has connected successfully`);
-});
-
-mongoose.connection.on('reconnected', () => {
-    console.log(`Mongo has reconected`);
-});
-
-mongoose.connection.on('disconnected', () => {
-    console.log(`Mongo disconnected`);
-});
-
-mongoose.connection.on('error', (error) => {
-    console.log(`Mongo connection error`, error);
-});
+    async closeConnection(): Promise<void> {
+        if (this.client) {
+            await this.client.close();
+            console.log('MongoDB connection closed')
+        }
+    }
+}
