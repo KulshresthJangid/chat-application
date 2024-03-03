@@ -1,6 +1,6 @@
 import { Collection, Db, DeleteOptions, DeleteResult, Filter, FindCursor, FindOneAndUpdateOptions, InsertManyResult, InsertOneResult, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions, UpdateResult, WithId } from "mongodb";
 
-export class BaseMongoRaw<T extends { _id: string }> {
+export class BaseMongoRaw<T extends { _id?: string }> {
     protected collection: Collection<T>;
     protected collectionNamme: string;
 
