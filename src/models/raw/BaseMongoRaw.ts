@@ -1,6 +1,7 @@
 import { Collection, Db, DeleteOptions, DeleteResult, Filter, FindCursor, FindOneAndUpdateOptions, InsertManyResult, InsertOneResult, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions, UpdateResult, WithId } from "mongodb";
+import { BaseRaw } from "../../core-typings/IBaseRaw";
 
-export class BaseMongoRaw<T extends { _id?: string }> {
+export class BaseMongoRaw<T extends BaseRaw> {
     protected collection: Collection<T>;
     protected collectionNamme: string;
 
@@ -14,7 +15,13 @@ export class BaseMongoRaw<T extends { _id?: string }> {
     }
 
     async insertOne(document: T): Promise<InsertOneResult<T>> {
-        return this.collection.insertOne(document as unknown as OptionalUnlessRequiredId<T>);
+        const now = new Date();
+        const documentWithTimeStamps: T = {
+            ...document as unknown as T,
+            createdAt: now,
+            updatedAt: now,
+        }
+        return this.collection.insertOne(documentWithTimeStamps as unknown as OptionalUnlessRequiredId<T>);
     }
 
     insertMany(document: T[]): Promise<InsertManyResult<T>> {
@@ -43,18 +50,18 @@ export class BaseMongoRaw<T extends { _id?: string }> {
     }
 
     removeById(_id: T['_id']): Promise<DeleteResult> {
-        return this.collection.deleteOne({_id} as Filter<T>);
+        return this.collection.deleteOne({ _id } as Filter<T>);
     }
 
     async deleteOne(filter: Filter<T>, options?: DeleteOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteResult> {
-        if(options) {
+        if (options) {
             return this.collection.deleteOne(filter, options);
         }
         return this.collection.deleteOne(filter);
     }
 
     async deleteMany(filter: Filter<T>, options?: DeleteOptions): Promise<DeleteResult> {
-        if(options) {
+        if (options) {
             return this.collection.deleteMany(filter, options);
         }
 
@@ -69,7 +76,9 @@ export class BaseMongoRaw<T extends { _id?: string }> {
         return this.collection.findOne(query, options || {});
     }
 
-    find(query?: Filter<T>): FindCursor<WithId<T>> {
-        return this.collection.find(query || {});
+    async find(query?: Filter<T>): Promise<WithId<T>[]> {
+        let cursor = this.collection.find(query || {});
+        let result = await cursor.toArray();
+        return result;
     }
 }

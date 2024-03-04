@@ -8,7 +8,7 @@ export const signToken = (userId: string): string => {
 }
 
 
-export const hashPassword = (password: string) => {
+export const hashPassword = (password: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(10, (err, salt) => {
             console.log("Salt", salt)

@@ -1,7 +1,6 @@
 import http from 'http';
 import express from 'express';
 
-import './config/mongo';
 import authRoutes from './routes/authRoutes';
 import chatRoomRoutes from './routes/chatRoom';
 import auth from './middlewares/auth';
@@ -22,6 +21,6 @@ initSocket(server);
 
 (global as any).io = server.listen(port);
 
-server.on('listening', () => {
+server.on('listening', async () => {
     console.log(`Server is up and running on port ${port}`);
 });
