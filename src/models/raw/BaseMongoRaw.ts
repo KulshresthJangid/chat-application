@@ -1,7 +1,7 @@
 import { Collection, Db, DeleteOptions, DeleteResult, Filter, FindCursor, FindOneAndUpdateOptions, InsertManyResult, InsertOneResult, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions, UpdateResult, WithId } from "mongodb";
-import { BaseRaw } from "../../core-typings/IBaseRaw";
+import { IBaseRaw } from "../../core-typings/IBaseRaw";
 
-export class BaseMongoRaw<T extends BaseRaw> {
+export class BaseMongoRaw<T extends IBaseRaw> {
     protected collection: Collection<T>;
     protected collectionNamme: string;
 

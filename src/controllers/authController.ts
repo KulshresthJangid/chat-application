@@ -44,26 +44,26 @@ export default {
     },
 
     loginUser: async (req: Request, res: Response) => {
-        // const { userName, password }: { userName: string, password: string } = req.body;
-        // const user = await User.find({ userName });
-        // if (user.length === 0) {
-        //     res.status(404).send({
-        //         success: false,
-        //         message: `No user Found with username and password`,
-        //     });
-        // } else {
-        //     const passCheck = checkPassword(password, user[0].password);
-        //     if (passCheck) {
-        //         res.status(200).send({
-        //             success: true,
-        //             token: signToken(user[0].id),
-        //         });
-        //     } else {
-        //         res.status(401).send({
-        //             success: false,
-        //             message: `Invalid username and password`,
-        //         })
-        //     }
-        // }
+        const { userName, password }: { userName: string, password: string } = req.body;
+        const user = await UserModel.find({ userName });
+        if (user.length === 0) {
+            res.status(404).send({
+                success: false,
+                message: `No user Found with username and password`,
+            });
+        } else {
+            const passCheck = checkPassword(password, user[0].password);
+            if (passCheck) {
+                res.status(200).send({
+                    success: true,
+                    token: signToken(user[0]._id.toString()),
+                });
+            } else {
+                res.status(401).send({
+                    success: false,
+                    message: `Invalid username and password`,
+                })
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
-import { BaseRaw } from "./IBaseRaw";
+import { IBaseRaw } from "./IBaseRaw";
 
-export interface IUser extends BaseRaw {
+export interface IUser extends IBaseRaw {
     firstName: string;
     lastName: string;
     userName: string;
