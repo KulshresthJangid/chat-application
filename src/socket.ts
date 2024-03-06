@@ -7,7 +7,10 @@ let io: Server;
 
 export const initSocket = (server: http.Server): void => {
     io = new Server(server);
-    io.on('connection', WebSockets.connection);
+    io.on('connection', () => {
+        console.log("Connetion made");
+        
+    });
 };
 
 export const getSocketInstance = (): Server => {

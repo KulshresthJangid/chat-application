@@ -13,7 +13,8 @@ router.get('/:roomId', async (req: Request, res: Response) => {
 });
 
 router.post('/initiate', async (req: Request, res: Response) => {
-    
+    // userIds, type (type of chatrom), chatInitiator
+    // emit chats to specific socket connection
 });
 
 router.post('/:roomId/message', async (req: Request, res: Response) => {
