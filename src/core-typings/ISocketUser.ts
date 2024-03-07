@@ -1,4 +1,4 @@
 export interface ISocketUser {
     socketId: string;
-    userId: string;
+    userId: any;
 }

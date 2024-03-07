@@ -43,7 +43,7 @@ export default {
         }
     },
 
-    loginUser: async (req: Request, res: Response) => {
+    loginUser: async (req: Request, res: Response) => { 
         const { userName, password }: { userName: string, password: string } = req.body;
         const user = await UserModel.find({ userName });
         if (user.length === 0) {

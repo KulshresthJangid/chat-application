@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Client Example</title>
+    <!-- Import socket.io-client library -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js" integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Socket.io Client Example</h1>
+    <script>
+        // Connect to the server
+        const socket = io('ws://localhost:3000');
+        
+        socket.emit('identify', '65df78934687d2b563829271');
+        
+        socket.connect();
+
+
+        socket.emit('joinRoom', 'room2');
+
+        socket.emit('sendMessage', {room: 'room2', message: 'Hello! world'});
+
+        socket.emit('leaveRoom', 'room1');
+
+        socket.on('recevieMessage', (data)=> {
+            console.log("Mesasge from user", data);
+        })
+
+        // Handle disconnection
+        // socket.disconnect();
+    </script>
+</body>
+</html>
