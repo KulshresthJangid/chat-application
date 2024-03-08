@@ -1,4 +1,4 @@
-import { Collection, Db, DeleteOptions, DeleteResult, Filter, FindCursor, FindOneAndUpdateOptions, InsertManyResult, InsertOneResult, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions, UpdateResult, WithId } from "mongodb";
+import { AggregateOptions, Collection, Db, DeleteOptions, DeleteResult, Filter, FindCursor, FindOneAndUpdateOptions, InsertManyResult, InsertOneResult, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions, UpdateResult, WithId, Document } from "mongodb";
 import { IBaseRaw } from "../../core-typings/IBaseRaw";
 
 export class BaseMongoRaw<T extends IBaseRaw> {
@@ -80,5 +80,12 @@ export class BaseMongoRaw<T extends IBaseRaw> {
         let cursor = this.collection.find(query || {});
         let result = await cursor.toArray();
         return result;
+    }
+
+    async aggregate(pipeline?: Document[], options?: AggregateOptions): Promise<any> {
+        if (options) {
+            return this.collection.aggregate(pipeline, options);
+        }
+        return this.collection.aggregate(pipeline);
     }
 }

@@ -17,7 +17,7 @@ export class ChatRoom extends BaseMongoRaw<IChatRoom> implements IChatRoomModel 
             });
 
             
-            console.log("global.io-=-------------", global.io.sockets)
+            console.log("global.io-=-------------", socketConnections.getIo().sockets);
             
             
             const initiatorSocket = socketConnections.getIo().sockets.sockets.get(socketConnections.getUser().filter(user => user.userId === chatInitiator)[0].socketId);
@@ -32,7 +32,7 @@ export class ChatRoom extends BaseMongoRaw<IChatRoom> implements IChatRoomModel 
                         await socket.join(availableRoom._id);
                     }
                 })
-                await socketConnections.getIo().to(availableRoom._id).emit('recevieMessage', ({data: "User connection establised"}))
+                // await socketConnections.getIo().to(availableRoom._id).emit('recevieMessage', ({data: "User connection establised"}))
                 return {
                     isNew: false,
                     message: 'Old chat room found',

@@ -13,4 +13,5 @@ export interface IBaseModel<T> {
     findOneAndUpdate(query: Filter<T>, update: UpdateFilter<T> | T, options?: FindOneAndUpdateOptions): Promise<WithId<T> | null>;
     findOne(query: Filter<T>, options?: undefined): Promise<WithId<T> | null>;
     find(query?: Filter<T>): FindCursor<WithId<T>>;
+    aggregate(pipeline?: Document[], options?: AggregateOptions):  Promise<any>;
 }
