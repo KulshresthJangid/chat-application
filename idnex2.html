@@ -17,7 +17,6 @@
         
         socket.connect();
 
-
         socket.emit('joinRoom', 'room2');
 
         socket.emit('sendMessage', {room: 'room2', message: 'Hello! world'});
